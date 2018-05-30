@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
 
 
 namespace
@@ -11,8 +13,47 @@ EnvironmentExtensions
 {
 
 
+static
+EnvironmentExtensions()
+{
+    IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
+    var mainModule = Process.GetCurrentProcess().MainModule.FileName;
+    var mainModuleName = Path.GetFileNameWithoutExtension(mainModule).ToLowerInvariant();
+    switch (mainModuleName)
+    {
+        case "dotnet":
+        case "mono":
+            DotnetProgram = mainModule;
+            break;
+        default:
+            DotnetProgram = null;
+            break;
+    }
+}
+
+
 /// <summary>
-/// Determine whether the process is running on a Windows operating system
+/// Full path to the dotnet framework program running the current process
+/// </summary>
+///
+/// <remarks>
+/// The full path to the <c>dotnet</c> program, if running on .NET Core
+/// - OR -
+/// The full path to the <c>mono</c> program, if running on Mono
+/// - OR -
+/// <c>null</c>
+/// </remarks>
+///
+public static string
+DotnetProgram
+{
+    get;
+}
+
+
+/// <summary>
+/// Is the process running on a Windows operating system?
 /// </summary>
 ///
 /// <remarks>
@@ -20,9 +61,9 @@ EnvironmentExtensions
 /// </remarks>
 ///
 public static bool
-IsWindows()
+IsWindows
 {
-    return RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+    get;
 }
 
 
