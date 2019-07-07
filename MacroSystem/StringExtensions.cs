@@ -7,147 +7,198 @@ namespace
 MacroSystem
 {
 
+    /// <summary>
+    /// Additional functionality for <see cref="string"/>
+    /// </summary>
+    ///
+    public static class
+    StringExtensions
+    {
 
-public static class
-StringExtensions
-{
-
-
-/// <summary>
-/// Convert all line endings in a string to <see cref="LineEnding.Native"/>
-/// </summary>
-///
-/// <param name="value">
-/// The string to normalise
-/// </param>
-///
-/// <returns>
-/// <paramref name="value"/> with all line endings converted to <see cref="LineEnding.Native"/>
-/// </returns>
-///
-/// <exception cref="ArgumentNullException">
-/// <paramref name="value"/> is <c>null</c>
-/// </exception>
-///
-[System.Diagnostics.CodeAnalysis.SuppressMessage(
-    "Microsoft.Naming",
-    "CA1704:IdentifiersShouldBeSpelledCorrectly",
-    MessageId = "Normalise",
-    Justification = "How most of the world spells it")]
-public static string
-NormaliseLineEndings(string value)
-{
-    return NormaliseLineEndings(value, LineEnding.Native);
-}
-
-
-/// <summary>
-/// Convert all line endings in a string to a particular kind of line ending
-/// </summary>
-///
-/// <param name="value">
-/// The string to normalise
-/// </param>
-///
-/// <param name="lineEnding">
-/// The kind of line ending to normalise to
-/// </param>
-///
-/// <returns>
-/// <paramref name="value"/> with all line endings converted to <paramref name="lineEnding"/>
-/// </returns>
-///
-/// <exception cref="ArgumentNullException">
-/// <paramref name="value"/> is <c>null</c>
-/// - OR -
-/// <paramref name="lineEnding"/> is <c>null</c>
-/// </exception>
-///
-[System.Diagnostics.CodeAnalysis.SuppressMessage(
-    "Microsoft.Naming",
-    "CA1704:IdentifiersShouldBeSpelledCorrectly",
-    MessageId = "Normalise",
-    Justification = "How most of the world spells it")]
-public static string
-NormaliseLineEndings(string value, LineEnding lineEnding)
-{
-    if (value == null) throw new ArgumentNullException(nameof(value));
-    if (lineEnding == null) throw new ArgumentNullException(nameof(lineEnding));
-    return value
-        .Replace(LineEnding.CRLF, LineEnding.LF)
-        .Replace(LineEnding.CR, LineEnding.LF)
-        .Replace(LineEnding.LF, lineEnding);
-}
+        /// <summary>
+        /// Convert all line endings in a string to <see cref="LineEnding.Native"/>
+        /// </summary>
+        ///
+        /// <param name="value">
+        /// The string to normalise
+        /// </param>
+        ///
+        /// <returns>
+        /// <paramref name="value"/> with all line endings converted to <see cref="LineEnding.Native"/>
+        /// </returns>
+        ///
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="value"/> is <c>null</c>
+        /// </exception>
+        ///
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly",
+            MessageId = "Normalise",
+            Justification = "How most of the world spells it")]
+        public static string
+        NormaliseLineEndings(string value)
+        {
+            return NormaliseLineEndings(value, LineEnding.Native);
+        }
 
 
-/// <summary>
-/// Split a string into lines
-/// </summary>
-///
-/// <remarks>
-/// Handles any mixture of line endings
-/// </remarks>
-///
-/// <param name="value">
-/// The string to split
-/// </param>
-///
-/// <returns>
-/// The sequence of one or more lines in <paramref name="value"/>
-/// </returns>
-///
-/// <exception cref="ArgumentNullException">
-/// <paramref name="value"/> is <c>null</c>
-/// </exception>
-///
-public static IEnumerable<string>
-SplitLines(string value)
-{
-    return NormaliseLineEndings(value, LineEnding.LF).Split('\n');
-}
+        /// <summary>
+        /// Convert all line endings in a string to a particular kind of line ending
+        /// </summary>
+        ///
+        /// <param name="value">
+        /// The string to normalise
+        /// </param>
+        ///
+        /// <param name="lineEnding">
+        /// The kind of line ending to normalise to
+        /// </param>
+        ///
+        /// <returns>
+        /// <paramref name="value"/> with all line endings converted to <paramref name="lineEnding"/>
+        /// </returns>
+        ///
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="value"/> is <c>null</c>
+        /// - OR -
+        /// <paramref name="lineEnding"/> is <c>null</c>
+        /// </exception>
+        ///
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Naming",
+            "CA1704:IdentifiersShouldBeSpelledCorrectly",
+            MessageId = "Normalise",
+            Justification = "How most of the world spells it")]
+        public static string
+        NormaliseLineEndings(string value, LineEnding lineEnding)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            if (lineEnding == null)
+            {
+                throw new ArgumentNullException(nameof(lineEnding));
+            }
+
+            return value
+                .Replace(LineEnding.CRLF, LineEnding.LF)
+                .Replace(LineEnding.CR, LineEnding.LF)
+                .Replace(LineEnding.LF, lineEnding);
+        }
 
 
-/// <summary>
-/// Prefix all lines in a string
-/// </summary>
-///
-[System.Diagnostics.CodeAnalysis.SuppressMessage(
-    "Microsoft.Naming",
-    "CA1719:ParameterNamesShouldNotMatchMemberNames",
-    MessageId = "1#",
-    Justification = "The word 'Prefix' is used as a verb in the method name and as a noun in the parameter name")]
-public static string
-Prefix(string value, string prefix)
-{
-    if (value == null) throw new ArgumentNullException(nameof(value));
-    if (prefix == null) throw new ArgumentNullException(nameof(prefix));
-    var lines = SplitLines(value);
-    var prefixedLines = lines.Select(s => prefix + s);
-    return string.Join(LineEnding.Native, prefixedLines);
-}
+        /// <summary>
+        /// Split a string into lines
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Handles any mixture of line endings
+        /// </remarks>
+        ///
+        /// <param name="value">
+        /// The string to split
+        /// </param>
+        ///
+        /// <returns>
+        /// The sequence of one or more lines in <paramref name="value"/>
+        /// </returns>
+        ///
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="value"/> is <c>null</c>
+        /// </exception>
+        ///
+        public static IEnumerable<string>
+        SplitLines(string value)
+        {
+            return NormaliseLineEndings(value, LineEnding.LF).Split('\n');
+        }
 
 
-/// <summary>
-/// Prefix all lines in a string with two space characters
-/// </summary>
-///
-public static string
-Indent(string value)
-{
-    return Prefix(value, "  ");
-}
+        /// <summary>
+        /// Prefix all lines in a string
+        /// </summary>
+        ///
+        /// <param name="value">
+        /// The string
+        /// </param>
+        ///
+        /// <param name="prefix">
+        /// A string to prepend to all lines in <paramref name="value"/>
+        /// </param>
+        ///
+        /// <returns>
+        /// <paramref name="value"/> with <paramref name="prefix"/> prepended to each line
+        /// </returns>
+        ///
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Naming",
+            "CA1719:ParameterNamesShouldNotMatchMemberNames",
+            MessageId = "1#",
+            Justification = "The word 'Prefix' is used as a verb in the method name and as a noun in the parameter name")]
+        public static string
+        Prefix(string value, string prefix)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            if (prefix == null)
+            {
+                throw new ArgumentNullException(nameof(prefix));
+            }
+
+            var lines = SplitLines(value);
+            var prefixedLines = lines.Select(s => prefix + s);
+            return string.Join(LineEnding.Native, prefixedLines);
+        }
 
 
-/// <summary>
-/// A version of String.Format() that always uses the invariant culture
-/// </summary>
-///
-public static string
-FormatInvariant(string format, params object[] args)
-{
-    return string.Format(CultureInfo.InvariantCulture, format, args);
-}
+        /// <summary>
+        /// Indent all lines in a string with two space characters
+        /// </summary>
+        ///
+        /// <param name="value">
+        /// The string
+        /// </param>
+        ///
+        /// <returns>
+        /// <paramref name="value"/> with two space characters prepended to each line
+        /// </returns>
+        ///
+        public static string
+        Indent(string value)
+        {
+            return Prefix(value, "  ");
+        }
 
 
-}
+        /// <summary>
+        /// Replaces the format items in a specified string with the string representations of corresponding objects in
+        /// a specified array formatted according to <see cref="CultureInfo.InvariantCulture"/>
+        /// </summary>
+        ///
+        /// <param name="format">
+        /// A composite format string
+        /// </param>
+        ///
+        /// <param name="args">
+        /// An object array that contains zero or more objects to format
+        /// </param>
+        ///
+        /// <returns>
+        /// A copy of <paramref name="format"/> in which the format items have been replaced by the string
+        /// representation of the corresponding objects in <paramref name="args"/>
+        /// </returns>
+        ///
+        public static string
+        FormatInvariant(string format, params object[] args)
+        {
+            return string.Format(CultureInfo.InvariantCulture, format, args);
+        }
+
+    }
 }
