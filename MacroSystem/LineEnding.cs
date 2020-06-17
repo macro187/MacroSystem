@@ -1,7 +1,6 @@
 using System;
 
-namespace
-MacroSystem
+namespace MacroSystem
 {
 
     /// <summary>
@@ -12,53 +11,41 @@ MacroSystem
     /// https://en.wikipedia.org/wiki/Newline
     /// </remarks>
     ///
-    public class
-    LineEnding
+    public class LineEnding
     {
 
         /// <summary>
         /// Unix-style line ending consisting of a single line-feed character
         /// </summary>
         ///
-        public static readonly LineEnding
-        LF = new LineEnding("\n");
+        public static readonly LineEnding LF = new LineEnding("\n");
 
 
         /// <summary>
         /// Windows-style line ending consisting of a carriage-return character followed by a line-feed character
         /// </summary>
         ///
-        [System.Diagnostics.CodeAnalysis.SuppressMessage(
-            "Microsoft.Naming",
-            "CA1709:IdentifiersShouldBeCasedCorrectly",
-            MessageId = "CRLF",
-            Justification = "Matches CR and LF")]
-        public static readonly LineEnding
-        CRLF = new LineEnding("\r\n");
+        public static readonly LineEnding CRLF = new LineEnding("\r\n");
 
 
         /// <summary>
         /// Old Macintosh-style line ending consisting of a single carriage-return character
         /// </summary>
         ///
-        public static readonly LineEnding
-        CR = new LineEnding("\r");
+        public static readonly LineEnding CR = new LineEnding("\r");
 
 
         /// <summary>
         /// Line ending native to the operating system the process is running on
         /// </summary>
         ///
-        public static readonly LineEnding
-        Native = GetByValue(Environment.NewLine);
+        public static readonly LineEnding Native = GetByValue(Environment.NewLine);
 
 
-        private readonly string
-        value;
+        private readonly string value;
 
 
-        private
-        LineEnding(string value)
+        private LineEnding(string value)
         {
             this.value = value;
         }
@@ -72,8 +59,7 @@ MacroSystem
         /// The <see cref="LineEnding"/> to convert
         /// </param>
         ///
-        public static
-        implicit operator string(LineEnding lineEnding)
+        public static implicit operator string(LineEnding lineEnding)
         {
             return lineEnding?.ToString();
         }
@@ -99,8 +85,7 @@ MacroSystem
         /// <paramref name="value"/> is not a known line ending
         /// </exception>
         ///
-        public static LineEnding
-        GetByValue(string value)
+        public static LineEnding GetByValue(string value)
         {
             var lineEnding = FindByValue(value);
             if (lineEnding == null)
@@ -133,8 +118,7 @@ MacroSystem
         /// <paramref name="value"/> is <c>null</c>
         /// </exception>
         ///
-        public static LineEnding
-        FindByValue(string value)
+        public static LineEnding FindByValue(string value)
         {
             if (value == null)
             {
@@ -163,8 +147,7 @@ MacroSystem
         /// The string representation of the line ending
         /// </returns>
         ///
-        public override string
-        ToString()
+        public override string ToString()
         {
             return value;
         }

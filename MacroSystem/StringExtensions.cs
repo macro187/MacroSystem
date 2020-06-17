@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace
-MacroSystem
+namespace MacroSystem
 {
 
     /// <summary>
     /// Additional functionality for <see cref="string"/>
     /// </summary>
     ///
-    public static class
-    StringExtensions
+    public static class StringExtensions
     {
 
         /// <summary>
@@ -20,7 +18,7 @@ MacroSystem
         /// </summary>
         ///
         /// <param name="value">
-        /// The string to normalise
+        /// The string to normalize
         /// </param>
         ///
         /// <returns>
@@ -31,15 +29,9 @@ MacroSystem
         /// <paramref name="value"/> is <c>null</c>
         /// </exception>
         ///
-        [System.Diagnostics.CodeAnalysis.SuppressMessage(
-            "Microsoft.Naming",
-            "CA1704:IdentifiersShouldBeSpelledCorrectly",
-            MessageId = "Normalise",
-            Justification = "How most of the world spells it")]
-        public static string
-        NormaliseLineEndings(string value)
+        public static string NormalizeLineEndings(string value)
         {
-            return NormaliseLineEndings(value, LineEnding.Native);
+            return NormalizeLineEndings(value, LineEnding.Native);
         }
 
 
@@ -48,11 +40,11 @@ MacroSystem
         /// </summary>
         ///
         /// <param name="value">
-        /// The string to normalise
+        /// The string to normalize
         /// </param>
         ///
         /// <param name="lineEnding">
-        /// The kind of line ending to normalise to
+        /// The kind of line ending to normalize to
         /// </param>
         ///
         /// <returns>
@@ -65,13 +57,7 @@ MacroSystem
         /// <paramref name="lineEnding"/> is <c>null</c>
         /// </exception>
         ///
-        [System.Diagnostics.CodeAnalysis.SuppressMessage(
-            "Microsoft.Naming",
-            "CA1704:IdentifiersShouldBeSpelledCorrectly",
-            MessageId = "Normalise",
-            Justification = "How most of the world spells it")]
-        public static string
-        NormaliseLineEndings(string value, LineEnding lineEnding)
+        public static string NormalizeLineEndings(string value, LineEnding lineEnding)
         {
             if (value == null)
             {
@@ -110,10 +96,9 @@ MacroSystem
         /// <paramref name="value"/> is <c>null</c>
         /// </exception>
         ///
-        public static IEnumerable<string>
-        SplitLines(string value)
+        public static IEnumerable<string> SplitLines(string value)
         {
-            return NormaliseLineEndings(value, LineEnding.LF).Split('\n');
+            return NormalizeLineEndings(value, LineEnding.LF).Split('\n');
         }
 
 
@@ -133,13 +118,7 @@ MacroSystem
         /// <paramref name="value"/> with <paramref name="prefix"/> prepended to each line
         /// </returns>
         ///
-        [System.Diagnostics.CodeAnalysis.SuppressMessage(
-            "Microsoft.Naming",
-            "CA1719:ParameterNamesShouldNotMatchMemberNames",
-            MessageId = "1#",
-            Justification = "The word 'Prefix' is used as a verb in the method name and as a noun in the parameter name")]
-        public static string
-        Prefix(string value, string prefix)
+        public static string Prefix(string value, string prefix)
         {
             if (value == null)
             {
@@ -169,8 +148,7 @@ MacroSystem
         /// <paramref name="value"/> with two space characters prepended to each line
         /// </returns>
         ///
-        public static string
-        Indent(string value)
+        public static string Indent(string value)
         {
             return Prefix(value, "  ");
         }
@@ -194,8 +172,7 @@ MacroSystem
         /// representation of the corresponding objects in <paramref name="args"/>
         /// </returns>
         ///
-        public static string
-        FormatInvariant(string format, params object[] args)
+        public static string FormatInvariant(string format, params object[] args)
         {
             return string.Format(CultureInfo.InvariantCulture, format, args);
         }

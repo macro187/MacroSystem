@@ -2,20 +2,17 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace
-MacroSystem
+namespace MacroSystem
 {
 
     /// <summary>
     /// Additional functionality for <see cref="System.Environment"/>
     /// </summary>
     ///
-    public static class
-    EnvironmentExtensions
+    public static class EnvironmentExtensions
     {
 
-        static
-        EnvironmentExtensions()
+        static EnvironmentExtensions()
         {
             IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
@@ -46,8 +43,7 @@ MacroSystem
         /// <c>null</c>
         /// </remarks>
         ///
-        public static string
-        DotnetProgram
+        public static string DotnetProgram
         {
             get;
         }
@@ -61,8 +57,7 @@ MacroSystem
         /// If <c>false</c>, the process is running on a UNIX-like operating system such as MacOS or Linux.
         /// </remarks>
         ///
-        public static bool
-        IsWindows
+        public static bool IsWindows
         {
             get;
         }
