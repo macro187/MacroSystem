@@ -1,5 +1,7 @@
+using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace MacroSystem
@@ -60,6 +62,36 @@ namespace MacroSystem
         public static bool IsWindows
         {
             get;
+        }
+
+
+        /// <summary>
+        /// Locate a program on the system path
+        /// </summary>
+        ///
+        /// <returns>
+        /// The full path to the program
+        /// - OR -
+        /// <c>null</c>
+        /// </returns>
+        ///
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="programName"/> is <c>null</c>
+        /// </exception>
+        ///
+        public static string FindProgramOnSystemPath(string programName)
+        {
+            if (programName == null)
+            {
+                throw new ArgumentNullException(nameof(programName));
+            }
+
+            return
+                Environment.GetEnvironmentVariable("PATH")
+                    ?.Split(Path.PathSeparator)
+                    .Select(dir => Path.Combine(dir, programName))
+                    .Where(path => File.Exists(path))
+                    .FirstOrDefault();
         }
 
     }
